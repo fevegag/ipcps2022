@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        #map {
+            width: 1556px;
+            height: 822px;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/PriorizacinSocioeconmica_1.js"></script>
+        <script src="data/PriorizacinporSAIDI_2.js"></script>
+        <script src="data/ndicePriorizacinComunal_3.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:9
+        }).fitBounds([[-33.64634742927744,-71.44949674032412],[-32.848033369752756,-69.93659424215173]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_GoogleMaps_0');
+        map.getPane('pane_GoogleMaps_0').style.zIndex = 400;
+        var layer_GoogleMaps_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleMaps_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 9,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 18
+        });
+        layer_GoogleMaps_0;
+        map.addLayer(layer_GoogleMaps_0);
+        function pop_PriorizacinSocioeconmica_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>Comuna</strong><br />' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Vulnerabilidad Socioeconómica (RSH)</th>\
+                        <td>' + (feature.properties['DatasetV0_Vulnerabilidad RSH'] !== null ? autolinker.link(feature.properties['DatasetV0_Vulnerabilidad RSH'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Endeudamiento hogar servicio eléctrico</th>\
+                        <td>' + (feature.properties['DatasetV0_Deuda por hogar'] !== null ? autolinker.link(feature.properties['DatasetV0_Deuda por hogar'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Hogares en campamentos</th>\
+                        <td>' + (feature.properties['DatasetV0_Hogares Campamentos'] !== null ? autolinker.link(feature.properties['DatasetV0_Hogares Campamentos'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Materialidad de la vivienda</th>\
+                        <td>' + (feature.properties['DatasetV0_indicematvivienda'] !== null ? autolinker.link(feature.properties['DatasetV0_indicematvivienda'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Factores socioeconómicos</th>\
+                        <td>' + (feature.properties['DatasetV0_Factores Sociales (4var)'] !== null ? autolinker.link(feature.properties['DatasetV0_Factores Sociales (4var)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_PriorizacinSocioeconmica_1_0(feature) {
+            if (feature.properties['DatasetV0_Factores Sociales (4var)'] >= 0.024000 && feature.properties['DatasetV0_Factores Sociales (4var)'] <= 0.199000 ) {
+                return {
+                pane: 'pane_PriorizacinSocioeconmica_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.612)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(247,251,255,0.612)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['DatasetV0_Factores Sociales (4var)'] >= 0.199000 && feature.properties['DatasetV0_Factores Sociales (4var)'] <= 0.386000 ) {
+                return {
+                pane: 'pane_PriorizacinSocioeconmica_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.612)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(175,209,231,0.612)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['DatasetV0_Factores Sociales (4var)'] >= 0.386000 && feature.properties['DatasetV0_Factores Sociales (4var)'] <= 0.623000 ) {
+                return {
+                pane: 'pane_PriorizacinSocioeconmica_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.612)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(62,142,196,0.612)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['DatasetV0_Factores Sociales (4var)'] >= 0.623000 && feature.properties['DatasetV0_Factores Sociales (4var)'] <= 0.826000 ) {
+                return {
+                pane: 'pane_PriorizacinSocioeconmica_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.612)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(8,48,107,0.612)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_PriorizacinSocioeconmica_1');
+        map.getPane('pane_PriorizacinSocioeconmica_1').style.zIndex = 401;
+        map.getPane('pane_PriorizacinSocioeconmica_1').style['mix-blend-mode'] = 'normal';
+        var layer_PriorizacinSocioeconmica_1 = new L.geoJson(json_PriorizacinSocioeconmica_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_PriorizacinSocioeconmica_1',
+            layerName: 'layer_PriorizacinSocioeconmica_1',
+            pane: 'pane_PriorizacinSocioeconmica_1',
+            onEachFeature: pop_PriorizacinSocioeconmica_1,
+            style: style_PriorizacinSocioeconmica_1_0,
+        });
+        bounds_group.addLayer(layer_PriorizacinSocioeconmica_1);
+        map.addLayer(layer_PriorizacinSocioeconmica_1);
+        function pop_PriorizacinporSAIDI_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>Comuna</strong><br />' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">SAIDI</th>\
+                        <td>' + (feature.properties['DatasetV0_SAIDI_norm'] !== null ? autolinker.link(feature.properties['DatasetV0_SAIDI_norm'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_PriorizacinporSAIDI_2_0(feature) {
+            if (feature.properties['DatasetV0_SAIDI_norm'] >= 0.000000 && feature.properties['DatasetV0_SAIDI_norm'] <= 0.104000 ) {
+                return {
+                pane: 'pane_PriorizacinporSAIDI_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.612)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(247,252,245,0.612)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['DatasetV0_SAIDI_norm'] >= 0.104000 && feature.properties['DatasetV0_SAIDI_norm'] <= 0.225000 ) {
+                return {
+                pane: 'pane_PriorizacinporSAIDI_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.612)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(178,224,171,0.612)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['DatasetV0_SAIDI_norm'] >= 0.225000 && feature.properties['DatasetV0_SAIDI_norm'] <= 0.323000 ) {
+                return {
+                pane: 'pane_PriorizacinporSAIDI_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.612)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(61,167,90,0.612)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['DatasetV0_SAIDI_norm'] >= 0.323000 && feature.properties['DatasetV0_SAIDI_norm'] <= 1.000000 ) {
+                return {
+                pane: 'pane_PriorizacinporSAIDI_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.612)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,68,27,0.612)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_PriorizacinporSAIDI_2');
+        map.getPane('pane_PriorizacinporSAIDI_2').style.zIndex = 402;
+        map.getPane('pane_PriorizacinporSAIDI_2').style['mix-blend-mode'] = 'normal';
+        var layer_PriorizacinporSAIDI_2 = new L.geoJson(json_PriorizacinporSAIDI_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_PriorizacinporSAIDI_2',
+            layerName: 'layer_PriorizacinporSAIDI_2',
+            pane: 'pane_PriorizacinporSAIDI_2',
+            onEachFeature: pop_PriorizacinporSAIDI_2,
+            style: style_PriorizacinporSAIDI_2_0,
+        });
+        bounds_group.addLayer(layer_PriorizacinporSAIDI_2);
+        map.addLayer(layer_PriorizacinporSAIDI_2);
+        function pop_ndicePriorizacinComunal_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>Comuna</strong><br />' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Índice de priorización comunal Plan de Sostenibilidad 2022</th>\
+                        <td>' + (feature.properties['DatasetV0_Priorización comunal'] !== null ? autolinker.link(feature.properties['DatasetV0_Priorización comunal'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ndicePriorizacinComunal_3_0(feature) {
+            if (feature.properties['DatasetV0_Priorización comunal'] >= 0.017000 && feature.properties['DatasetV0_Priorización comunal'] <= 0.091000 ) {
+                return {
+                pane: 'pane_ndicePriorizacinComunal_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.624)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,245,240,0.624)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['DatasetV0_Priorización comunal'] >= 0.091000 && feature.properties['DatasetV0_Priorización comunal'] <= 0.281000 ) {
+                return {
+                pane: 'pane_ndicePriorizacinComunal_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.624)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(252,164,134,0.624)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['DatasetV0_Priorización comunal'] >= 0.281000 && feature.properties['DatasetV0_Priorización comunal'] <= 0.451000 ) {
+                return {
+                pane: 'pane_ndicePriorizacinComunal_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.624)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(234,55,42,0.624)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['DatasetV0_Priorización comunal'] >= 0.451000 && feature.properties['DatasetV0_Priorización comunal'] <= 0.824000 ) {
+                return {
+                pane: 'pane_ndicePriorizacinComunal_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.624)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(103,0,13,0.624)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_ndicePriorizacinComunal_3');
+        map.getPane('pane_ndicePriorizacinComunal_3').style.zIndex = 403;
+        map.getPane('pane_ndicePriorizacinComunal_3').style['mix-blend-mode'] = 'normal';
+        var layer_ndicePriorizacinComunal_3 = new L.geoJson(json_ndicePriorizacinComunal_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ndicePriorizacinComunal_3',
+            layerName: 'layer_ndicePriorizacinComunal_3',
+            pane: 'pane_ndicePriorizacinComunal_3',
+            onEachFeature: pop_ndicePriorizacinComunal_3,
+            style: style_ndicePriorizacinComunal_3_0,
+        });
+        bounds_group.addLayer(layer_ndicePriorizacinComunal_3);
+        map.addLayer(layer_ndicePriorizacinComunal_3);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'Índice Priorización Comunal<br /><table><tr><td style="text-align: center;"><img src="legend/ndicePriorizacinComunal_3_Sinpriorización0.png" /></td><td>Sin priorización</td></tr><tr><td style="text-align: center;"><img src="legend/ndicePriorizacinComunal_3_Priorizaciónbaja1.png" /></td><td>Priorización baja</td></tr><tr><td style="text-align: center;"><img src="legend/ndicePriorizacinComunal_3_Priorizaciónmedia2.png" /></td><td>Priorización media</td></tr><tr><td style="text-align: center;"><img src="legend/ndicePriorizacinComunal_3_Priorizaciónalta3.png" /></td><td>Priorización alta</td></tr></table>': layer_ndicePriorizacinComunal_3,'Priorización por SAIDI<br /><table><tr><td style="text-align: center;"><img src="legend/PriorizacinporSAIDI_2_Sinpriorización0.png" /></td><td>Sin priorización</td></tr><tr><td style="text-align: center;"><img src="legend/PriorizacinporSAIDI_2_Priorizaciónbaja1.png" /></td><td>Priorización baja</td></tr><tr><td style="text-align: center;"><img src="legend/PriorizacinporSAIDI_2_Priorizaciónmedia2.png" /></td><td>Priorización media</td></tr><tr><td style="text-align: center;"><img src="legend/PriorizacinporSAIDI_2_Priorizaciónalta3.png" /></td><td>Priorización alta</td></tr></table>': layer_PriorizacinporSAIDI_2,'Priorización Socioeconómica<br /><table><tr><td style="text-align: center;"><img src="legend/PriorizacinSocioeconmica_1_Sinpriorización0.png" /></td><td>Sin priorización</td></tr><tr><td style="text-align: center;"><img src="legend/PriorizacinSocioeconmica_1_Priorizaciónbaja1.png" /></td><td>Priorización baja</td></tr><tr><td style="text-align: center;"><img src="legend/PriorizacinSocioeconmica_1_Priorizaciónmedia2.png" /></td><td>Priorización media</td></tr><tr><td style="text-align: center;"><img src="legend/PriorizacinSocioeconmica_1_Priorizaciónalta3.png" /></td><td>Priorización alta</td></tr></table>': layer_PriorizacinSocioeconmica_1,"Google Maps": layer_GoogleMaps_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        var i = 0;
+        layer_PriorizacinSocioeconmica_1.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Name'] !== null?String('<div style="color: #000000; font-size: 6pt; font-family: \'Garamond\', sans-serif;">' + layer.feature.properties['Name']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_PriorizacinSocioeconmica_1'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_PriorizacinporSAIDI_2.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Name'] !== null?String('<div style="color: #000000; font-size: 6pt; font-family: \'Garamond\', sans-serif;">' + layer.feature.properties['Name']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_PriorizacinporSAIDI_2'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_ndicePriorizacinComunal_3.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Name'] !== null?String('<div style="color: #000000; font-size: 6pt; font-family: \'Garamond\', sans-serif;">' + layer.feature.properties['Name']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_ndicePriorizacinComunal_3'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        resetLabels([layer_PriorizacinSocioeconmica_1,layer_PriorizacinporSAIDI_2,layer_ndicePriorizacinComunal_3]);
+        map.on("zoomend", function(){
+            resetLabels([layer_PriorizacinSocioeconmica_1,layer_PriorizacinporSAIDI_2,layer_ndicePriorizacinComunal_3]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_PriorizacinSocioeconmica_1,layer_PriorizacinporSAIDI_2,layer_ndicePriorizacinComunal_3]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_PriorizacinSocioeconmica_1,layer_PriorizacinporSAIDI_2,layer_ndicePriorizacinComunal_3]);
+        });
+        </script>
+    </body>
+</html>
